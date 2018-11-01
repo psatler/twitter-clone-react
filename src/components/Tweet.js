@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { formatTweet, formatDate } from "../utils/helpers";
+import { Link, withRouter } from "react-router-dom";
 
 //importing icons from react-icons
 import { TiArrowBackOutline } from "react-icons/ti";
@@ -13,6 +14,7 @@ class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
     //todo: redirect to parent tweet
+    this.props.history.push(`/tweet/${id}`);
   };
 
   handleLike = e => {
@@ -48,11 +50,12 @@ class Tweet extends Component {
       hasLiked,
       likes,
       replies,
+      id,
       parent
     } = tweet;
 
     return (
-      <div className="tweet">
+      <Link to={`/tweet/${id}`} className="tweet">
         <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
 
         <div className="tweet-info">
@@ -84,7 +87,7 @@ class Tweet extends Component {
             <span>{likes !== 0 && likes} </span>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -102,4 +105,5 @@ function mapStateToProps({ authedUser, users, tweets }, { id }) {
   };
 }
 
-export default connect(mapStateToProps)(Tweet);
+//using withRouter because this component is not being rendered by react router, so to have access to history props, we need to use withRouter
+export default withRouter(connect(mapStateToProps)(Tweet));

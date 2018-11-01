@@ -11,6 +11,7 @@ class TweetPage extends Component {
     return (
       <div>
         <Tweet id={id} />
+        {/* passing the parent tweet id */}
         <NewTweet id={id} />
 
         {replies.length !== 0 && <h3 className="center">Replies</h3>}
