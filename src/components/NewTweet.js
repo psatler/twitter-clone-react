@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { handleAddTweet } from "../actions/tweets";
 
 class NewTweet extends Component {
   state = {
@@ -17,8 +19,13 @@ class NewTweet extends Component {
     e.preventDefault();
     const { text } = this.state;
 
+    //if we are at route /new, there is no id, so we are not replying to any tweet
+    //if we are at route /tweet/:id, we are replying to that id
+    const { dispatch, id } = this.props; //if id is a thing, it means we are replying to this id
+
     //todo: Add tweet to store
-    console.log("New Tweet: ", text);
+    dispatch(handleAddTweet(text, id));
+    // console.log("New Tweet: ", text);
 
     //reset state to default
     this.setState(() => ({
@@ -56,4 +63,4 @@ class NewTweet extends Component {
   }
 }
 
-export default NewTweet;
+export default connect()(NewTweet);
