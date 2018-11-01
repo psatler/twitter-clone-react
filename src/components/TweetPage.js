@@ -39,4 +39,4 @@ function mapStateToProps({ authedUser, tweets, users }, props) {
   };
 }
 
-export default connect()(TweetPage);
+export default connect(mapStateToProps)(TweetPage);
